@@ -1,7 +1,26 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { Reveal, SectionHead, GlassCard, Marquee, PageHero } from '../components/ui.jsx'
+import { Reveal, SectionHead, Marquee, PageHero, LogoTile } from '../components/ui.jsx'
 import { clients } from '../data.js'
+
+function ClientGrid({ list }) {
+  return (
+    <div className="grid grid-md-2 grid-xl-4">
+      {list.map((c, i) => (
+        <Reveal key={c.name} delay={(i % 4) * 90}>
+          <div className="glass sheen glass-hover card client-card">
+            <div className="inner" style={{ width: '100%' }}>
+              <div className="plate big">
+                {c.logo ? <img src={c.logo} alt={c.name} loading="lazy" /> : <span className="wordmark-fallback">{c.name}</span>}
+              </div>
+              <h3>{c.name}</h3>
+            </div>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  )
+}
 
 export default function Clients() {
   return (
@@ -14,31 +33,18 @@ export default function Clients() {
 
       <section className="container section" style={{ paddingTop: 40 }}>
         <Reveal>
-          <Marquee
-            items={clients}
-            duration={36}
-            render={(c) => (
-              <div className="glass-strong logo-tile">
-                <img src={c.logo} alt={c.name} />
-                <span className="tag">{c.name}</span>
-              </div>
-            )}
-          />
+          <Marquee items={clients} duration={40} render={(c) => <LogoTile name={c.name} logo={c.logo} tag={c.name} />} />
         </Reveal>
       </section>
 
       <section className="container section">
-        <SectionHead eyebrow="Client Directory" title="Some of our clients" />
-        <div className="grid grid-md-2 grid-xl-4">
-          {clients.map((c, i) => (
-            <Reveal key={c.name} delay={(i % 4) * 90}>
-              <GlassCard className="client-card">
-                <div className="logo-box"><img src={c.logo} alt={c.name} loading="lazy" /></div>
-                <h3>{c.name}</h3>
-              </GlassCard>
-            </Reveal>
-          ))}
-        </div>
+        <SectionHead eyebrow="Top Clients" title="Featured client partnerships" />
+        <ClientGrid list={clients.filter((c) => c.top)} />
+      </section>
+
+      <section className="container section">
+        <SectionHead eyebrow="Client Directory" title="More businesses we've supported" />
+        <ClientGrid list={clients.filter((c) => !c.top)} />
         <Reveal style={{ marginTop: 40 }}>
           <Link to="/contact" className="btn btn-primary sheen">Become our next success story <ArrowRight size={16} /></Link>
         </Reveal>

@@ -63,8 +63,9 @@ function Footer() {
       <div className="glass panel">
         <div className="footer-grid">
           <div>
-            <p className="wordmark">Cloud9 <span className="muted">Consultancy</span></p>
+            <p className="wordmark">Cloud9 <span className="brand-icon">Consultancy</span></p>
             <p className="muted" style={{ marginTop: 16, maxWidth: 384, fontSize: 14 }}>{company.intro}</p>
+            <p className="muted" style={{ marginTop: 12, fontSize: 13 }}>Partners with Amazon, Microsoft, Google Cloud and Trellix.</p>
             <div className="socials">
               <a href={company.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><Linkedin size={16} /></a>
               <a href={company.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram"><Instagram size={16} /></a>
@@ -81,17 +82,22 @@ function Footer() {
           </div>
           <div>
             <p className="eyebrow" style={{ fontSize: 12 }}>Reach Us</p>
-            <div className="muted" style={{ marginTop: 20, display: 'grid', gap: 10, fontSize: 14 }}>
-              <p style={{ display: 'flex', gap: 8 }}><MapPin size={16} style={{ flexShrink: 0, marginTop: 2 }} />{company.address.join(', ')}</p>
-              <p style={{ display: 'flex', gap: 8 }}><Phone size={16} style={{ flexShrink: 0, marginTop: 2 }} />{company.phones.join(' · ')}</p>
-              <p style={{ display: 'flex', gap: 8 }}><Mail size={16} style={{ flexShrink: 0, marginTop: 2 }} />{company.email}</p>
+            <div className="muted" style={{ marginTop: 20, display: 'grid', gap: 14, fontSize: 13 }}>
+              {company.offices.map((o) => (
+                <div key={o.label}>
+                  <p style={{ color: 'var(--foreground)', fontWeight: 500 }}>{o.label}</p>
+                  <p style={{ display: 'flex', gap: 8, marginTop: 4 }}><MapPin size={14} style={{ flexShrink: 0, marginTop: 3 }} />{o.lines.join(', ')}</p>
+                  <p style={{ display: 'flex', gap: 8, marginTop: 2 }}><Phone size={14} style={{ flexShrink: 0, marginTop: 3 }} />{o.phone}</p>
+                </div>
+              ))}
+              <p style={{ display: 'flex', gap: 8 }}><Mail size={14} style={{ flexShrink: 0, marginTop: 3 }} />{company.email}</p>
             </div>
             <Link to="/contact" className="btn btn-primary sheen" style={{ marginTop: 24 }}>Start a project</Link>
           </div>
         </div>
         <div className="bottom muted">
           <span>© {new Date().getFullYear()} Cloud9 Consultancy. All rights reserved.</span>
-          <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: 10 }}>Noida · India</span>
+          <span style={{ fontFamily: 'var(--font-mono)', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: 10 }}>Noida · India  /  Jacksonville · USA</span>
         </div>
       </div>
     </footer>

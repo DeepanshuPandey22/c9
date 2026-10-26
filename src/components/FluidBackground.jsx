@@ -69,9 +69,13 @@ void main() {
   }
 
   float shade = clamp(0.5 + (a - b) * 0.8, 0.0, 1.0);
-  vec3 col = mix(vec3(0.53), vec3(1.0), shade) * lit;
-  float alpha = max(col.r, max(col.g, col.b)) * 0.25;
-  outColor = vec4(col * 0.25, alpha);
+  // Cloud9 brand: indigo #2d388d (lifted) -> sky #2aa9e0 -> ice highlights
+  vec3 indigo = vec3(0.36, 0.44, 1.0);
+  vec3 sky = vec3(0.165, 0.663, 0.878);
+  vec3 ice = vec3(0.84, 0.91, 0.97);
+  vec3 col = mix(mix(indigo, sky, shade), ice, pow(lit, 3.0) * 0.5) * lit;
+  float alpha = max(col.r, max(col.g, col.b)) * 0.32;
+  outColor = vec4(col * 0.32, alpha);
 }`
 
 function compile(gl, type, src) {

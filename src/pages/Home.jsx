@@ -1,19 +1,23 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles, CheckCircle2, LayoutGrid } from 'lucide-react'
-import { Reveal, SectionHead, GlassCard, Marquee } from '../components/ui.jsx'
-import { company, services, values, about, clients } from '../data.js'
+import { Reveal, SectionHead, GlassCard, Marquee, LogoTile } from '../components/ui.jsx'
+import { company, services, generalServices, values, about, clients, partners, stats } from '../data.js'
+
+const featured = services.filter((s) => s.featured)
 
 function Hero() {
+  const heroCards = ['microsoft', 'security', 'ai', 'data'].map((slug) => services.find((s) => s.slug === slug))
   return (
     <section className="container hero" style={{ position: 'relative' }}>
-      <div className="orb" style={{ width: 360, height: 360, top: 80, right: -60, background: 'oklch(98% 0 0 / 0.06)' }} />
+      <div className="orb" style={{ width: 380, height: 380, top: 60, right: -80, background: 'var(--brand-indigo-glow)' }} />
+      <div className="orb" style={{ width: 260, height: 260, top: 320, left: -120, background: 'var(--brand-sky-glow)', animationDelay: '-6s' }} />
       <Reveal as="p" className="glass chip">
         <Sparkles size={14} />
-        <span>IT · Cloud · Design Consultancy</span>
+        <span>IT · Cloud · Security · AI</span>
       </Reveal>
       <Reveal as="h1" className="text-aurora" delay={100}>
-        Expertly providing IT &amp; Design services you can trust
+        {company.headline}
       </Reveal>
       <Reveal as="p" className="lead muted" delay={200}>{company.intro}</Reveal>
       <Reveal className="actions" delay={300}>
@@ -27,34 +31,61 @@ function Hero() {
         </Link>
       </Reveal>
       <div className="grid grid-md-2 grid-xl-4 cards">
-        {services.slice(0, 4).map((s, i) => (
-          <Reveal key={s.slug} delay={400 + i * 90}>
-            <GlassCard>
-              <p className="mono-label">{s.tag}</p>
-              <h3>{s.title}</h3>
-              <p className="desc muted">{s.short}</p>
-            </GlassCard>
-          </Reveal>
-        ))}
+        {heroCards.map((s, i) => {
+          const Icon = s.icon
+          return (
+            <Reveal key={s.slug} delay={400 + i * 90}>
+              <Link to={`/services#${s.slug}`} style={{ display: 'block', height: '100%' }}>
+                <GlassCard>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <p className="mono-label">{s.tag}</p>
+                    <Icon size={18} className="brand-icon" />
+                  </div>
+                  <h3>{s.title}</h3>
+                  <p className="desc muted">{s.short}</p>
+                </GlassCard>
+              </Link>
+            </Reveal>
+          )
+        })}
       </div>
+    </section>
+  )
+}
+
+function Partners() {
+  return (
+    <section className="container section" style={{ paddingBottom: 40 }}>
+      <Reveal className="glass panel partners-strip">
+        <div className="inner">
+          <p className="eyebrow" style={{ textAlign: 'center' }}>We are partners with</p>
+          <div className="partner-row">
+            {partners.map((p) => (
+              <div key={p.name} className="partner-logo" title={p.note}>
+                {p.logo ? <img src={p.logo} alt={p.note} /> : <span className="trellix-mark">Trellix</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
     </section>
   )
 }
 
 function ServiceTabs() {
   const [active, setActive] = useState(0)
-  const s = services[active]
+  const s = featured[active]
   const Icon = s.icon
   return (
     <section className="container section">
       <SectionHead
         eyebrow="Core Capabilities"
-        title="End-to-End IT Services"
-        sub="Select a domain below to see exactly what our experts deliver — from first configuration to documentation and knowledge transfer."
-        link={{ to: '/services', label: 'All Services' }}
+        title="Comprehensive IT & Digital Services"
+        sub="A comprehensive range of IT and digital services designed to support and transform your business operations. Select a domain to see what our experts deliver."
+        link={{ to: '/services', label: 'All 13 Services' }}
       />
       <Reveal className="glass tabs" role="tablist">
-        {services.map((sv, i) => {
+        {featured.map((sv, i) => {
           const I = sv.icon
           return (
             <button key={sv.slug} role="tab" aria-selected={i === active} className={i === active ? 'on' : ''} onClick={() => setActive(i)}>
@@ -66,18 +97,67 @@ function ServiceTabs() {
       <Reveal className="glass panel" style={{ marginTop: 24 }}>
         <div className="inner tab-body tab-fade" key={s.slug}>
           <div>
-            <div className="glass-strong card icon" style={{ padding: 0, width: 48, height: 48, boxShadow: 'none' }}>
-              <Icon size={20} />
-            </div>
+            <div className="glass-strong icon-box"><Icon size={20} /></div>
             <h3 style={{ marginTop: 20 }}>{s.title}</h3>
-            <p className="mono-label" style={{ marginTop: 12, fontSize: 11 }}>{s.lead}</p>
-            <div className="media"><img src={s.image} alt={s.title} loading="lazy" /></div>
+            <p className="mono-label" style={{ marginTop: 12, fontSize: 11, lineHeight: 1.7 }}>{s.lead}</p>
+            {s.image ? (
+              <div className="media"><img src={s.image} alt={s.title} loading="lazy" /></div>
+            ) : (
+              <div className="media media-art"><Icon size={72} strokeWidth={1} /></div>
+            )}
           </div>
           <ul className="chips">
             {s.items.map((it) => (
               <li key={it} className="glass-strong"><CheckCircle2 size={16} />{it}</li>
             ))}
+            <li className="chips-more">
+              <Link to={`/services#${s.slug}`} className="link-arrow" style={{ marginTop: 8 }}>View service details <ArrowRight size={14} /></Link>
+            </li>
           </ul>
+        </div>
+      </Reveal>
+    </section>
+  )
+}
+
+function GeneralServices() {
+  return (
+    <section className="container section">
+      <SectionHead
+        eyebrow="General Services"
+        title="Everyday IT, fully managed"
+        sub="From server and desktop support to digital transformation, we take care of the IT your business depends on."
+      />
+      <div className="grid grid-md-2 grid-lg-3">
+        {generalServices.map((g, i) => (
+          <Reveal key={g} delay={(i % 3) * 80}>
+            <div className="glass sheen glass-hover gs-item">
+              <span className="mono-num">{String(i + 1).padStart(2, '0')}</span>
+              <span className="inner">{g}</span>
+            </div>
+          </Reveal>
+        ))}
+        <Reveal delay={160}>
+          <Link to="/contact" className="gs-item gs-cta">
+            Need something else? <ArrowRight size={16} />
+          </Link>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+function Stats() {
+  return (
+    <section className="container section" style={{ paddingTop: 0 }}>
+      <Reveal className="glass panel">
+        <div className="inner grid grid-md-2 grid-xl-4" style={{ gap: 32 }}>
+          {stats.map((s) => (
+            <div key={s.l} className="stat">
+              <p className="n text-aurora">{s.n}</p>
+              <p className="l">{s.l}</p>
+            </div>
+          ))}
         </div>
       </Reveal>
     </section>
@@ -107,21 +187,13 @@ function Clients() {
   return (
     <section className="container section">
       <SectionHead
-        eyebrow="Our Clients"
+        eyebrow="Top Clients"
         title="Trusted by Growing Businesses"
         sub="We have worked closely and successfully with many companies, and pride ourselves on meeting and exceeding our clients' high expectations."
         link={{ to: '/clients', label: 'Explore More' }}
       />
       <Reveal>
-        <Marquee
-          items={clients}
-          render={(c) => (
-            <div className="glass-strong logo-tile">
-              <img src={c.logo} alt={c.name} />
-              <span className="tag">{c.name}</span>
-            </div>
-          )}
-        />
+        <Marquee items={clients} render={(c) => <LogoTile name={c.name} logo={c.logo} tag={c.name} />} />
       </Reveal>
     </section>
   )
@@ -133,12 +205,12 @@ function AboutSplit() {
       <SectionHead eyebrow="About Cloud9" title="Built on Integrity, Reliability & Quality" />
       <div className="grid grid-lg-2" style={{ gap: 24 }}>
         <Reveal>
-          <GlassCard className="pad-lg">
+          <GlassCard>
             <p className="muted">{about.paragraphs[0]}</p>
             <ul style={{ marginTop: 28, display: 'grid', gap: 12 }}>
-              {['End-to-end infrastructure, design & development', 'Remote managed support & AMC', 'Documentation and knowledge transfer on every project'].map((t) => (
+              {['Partners with Amazon, Microsoft, Google Cloud and Trellix', 'Head office in Noida, India · branch office in Florida, USA', 'Managed services, remote support & AMC'].map((t) => (
                 <li key={t} style={{ display: 'flex', gap: 12, fontSize: 14 }}>
-                  <CheckCircle2 size={16} style={{ flexShrink: 0, marginTop: 2, color: 'var(--accent)' }} />{t}
+                  <CheckCircle2 size={16} className="brand-icon" style={{ flexShrink: 0, marginTop: 2 }} />{t}
                 </li>
               ))}
             </ul>
@@ -169,14 +241,14 @@ function AboutSplit() {
 function Cta() {
   return (
     <section className="container section">
-      <Reveal className="glass panel sheen" style={{ textAlign: 'center', padding: '64px 32px' }}>
+      <Reveal className="glass panel sheen cta-panel">
         <div className="inner">
           <p className="eyebrow">Get In Touch</p>
           <h2 className="text-aurora" style={{ marginTop: 16, fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 600, letterSpacing: '-0.025em', textWrap: 'balance' }}>
-            Let's optimise your IT operations
+            Let's make your business better through technology
           </h2>
           <p className="muted" style={{ margin: '16px auto 0', maxWidth: 560 }}>
-            Talk to our experts about network, security, cloud, Office 365, website or application projects.
+            Talk to our experts in India or the USA about cloud, security, network, data, AI or software projects.
           </p>
           <div style={{ marginTop: 32, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link to="/contact" className="btn btn-primary sheen">Contact Us <ArrowRight size={16} /></Link>
@@ -192,9 +264,12 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Partners />
       <ServiceTabs />
-      <Values />
+      <GeneralServices />
+      <Stats />
       <Clients />
+      <Values />
       <AboutSplit />
       <Cta />
     </>

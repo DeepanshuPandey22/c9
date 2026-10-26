@@ -86,6 +86,19 @@ export function Marquee({ items, render, duration = 48 }) {
   )
 }
 
+// Logo on a light plate (brand logos are made for white backgrounds);
+// falls back to a wordmark when there is no logo file.
+export function LogoTile({ name, logo, tag, wide = false }) {
+  return (
+    <div className={`glass-strong logo-tile ${wide ? 'wide' : ''}`}>
+      <div className="plate">
+        {logo ? <img src={logo} alt={name} loading="lazy" /> : <span className="wordmark-fallback">{name}</span>}
+      </div>
+      {tag && <span className="tag">{tag}</span>}
+    </div>
+  )
+}
+
 // Fixed strip at the viewport bottom: stacked layers of increasing blur,
 // each masked to its own band, so content softens as it leaves the screen.
 export function GradualBlur({ layers = 5, strength = 2 }) {
