@@ -151,7 +151,7 @@ function Stats() {
   return (
     <section className="container section" style={{ paddingTop: 0 }}>
       <Reveal className="glass panel">
-        <div className="inner grid grid-md-2 grid-xl-4" style={{ gap: 32 }}>
+        <div className="inner stats-grid">
           {stats.map((s) => (
             <div key={s.l} className="stat">
               <p className="n text-aurora">{s.n}</p>

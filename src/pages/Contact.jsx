@@ -27,7 +27,7 @@ export default function Contact() {
       <section className="container section" style={{ paddingTop: 40 }}>
         <div className="contact-grid">
           <Reveal>
-            <div className="glass card" style={{ padding: 32 }}>
+            <div className="glass card card-pad">
               <div className="inner">
                 <div className="glass tabs" role="tablist" style={{ boxShadow: 'none' }}>
                   {company.offices.map((o, i) => (

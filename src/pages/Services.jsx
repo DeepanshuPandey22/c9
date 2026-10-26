@@ -59,7 +59,7 @@ export default function Services() {
             const n = services.indexOf(s) + 1
             return (
               <Reveal key={`${group}-${s.slug}`} id={s.slug} className="anchor">
-                <div className="glass sheen card" style={{ padding: 32 }}>
+                <div className="glass sheen card card-pad">
                   <div className="inner service-row">
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
