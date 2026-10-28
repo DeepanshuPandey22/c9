@@ -7,11 +7,8 @@ import { company, nav } from '../data.js'
 
 function Brand() {
   return (
-    <Link to="/" className="brand">
-      <img src="/favicon.jpg" alt="Cloud9 Consultancy logo" />
-      <span>
-        Cloud9 <span className="dim">Consultancy</span>
-      </span>
+    <Link to="/" className="brand" aria-label="Cloud9 Consultancy home">
+      <img src="/logo-white.svg" alt="Cloud9 Consultancy" />
     </Link>
   )
 }
@@ -33,8 +30,13 @@ function Header() {
 
   return (
     <header className="header">
-      <nav className={`nav ${scrolled || open ? 'glass-strong' : 'glass'}`}>
+      <nav className={`nav solid ${scrolled ? 'scrolled' : ''}`}>
         <Brand />
+        <div className="nav-links">
+          {nav.map((n) => (
+            <NavLink key={n.to} to={n.to} end={n.to === '/'}>{n.label}</NavLink>
+          ))}
+        </div>
         <div className="nav-right">
           <Link to="/contact" className="nav-cta">Book a Consultation</Link>
           <button className="burger" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
