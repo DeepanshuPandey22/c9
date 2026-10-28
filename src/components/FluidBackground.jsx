@@ -15,6 +15,7 @@ uniform vec2 uRes;
 uniform float uTime;
 uniform vec2 uMouse;
 uniform float uMouseOn;
+uniform float uLight;
 out vec4 outColor;
 
 float hash21(vec2 p, float s) {
@@ -73,6 +74,13 @@ void main() {
   vec3 indigo = vec3(0.36, 0.44, 1.0);
   vec3 sky = vec3(0.0, 0.678, 0.937);
   vec3 ice = vec3(0.84, 0.91, 0.97);
+  if (uLight > 0.5) {
+    // Light theme: darker indigo -> cyan ink lines over the pale background
+    vec3 ink = mix(vec3(0.176, 0.22, 0.553), sky, shade);
+    float a = lit * 0.2;
+    outColor = vec4(ink * a, a);
+    return;
+  }
   vec3 col = mix(mix(indigo, sky, shade), ice, pow(lit, 3.0) * 0.5) * lit;
   float alpha = max(col.r, max(col.g, col.b)) * 0.32;
   outColor = vec4(col * 0.32, alpha);
@@ -117,6 +125,7 @@ export default function FluidBackground() {
     const uTime = gl.getUniformLocation(prog, 'uTime')
     const uMouse = gl.getUniformLocation(prog, 'uMouse')
     const uMouseOn = gl.getUniformLocation(prog, 'uMouseOn')
+    const uLight = gl.getUniformLocation(prog, 'uLight')
 
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     const resize = () => {
@@ -153,6 +162,7 @@ export default function FluidBackground() {
       gl.uniform1f(uTime, reduce ? 0 : (now - start) / 1000)
       gl.uniform2f(uMouse, mouse[0], mouse[1])
       gl.uniform1f(uMouseOn, mouseOn)
+      gl.uniform1f(uLight, document.documentElement.dataset.theme === 'light' ? 1 : 0)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
       raf = requestAnimationFrame(frame)
     }

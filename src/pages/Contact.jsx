@@ -61,7 +61,7 @@ export default function Contact() {
                     <iframe
                       title={`${company.offices[office].label} map`}
                       src={`https://www.google.com/maps?q=${company.offices[office].map}&output=embed`}
-                      style={{ border: 0, width: '100%', height: '100%', filter: 'grayscale(0.6) invert(0.9) hue-rotate(180deg) contrast(0.9)' }}
+                      className="map-frame"
                       loading="lazy"
                     />
                   </div>

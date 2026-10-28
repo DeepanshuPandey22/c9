@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Menu, X, Mail, Phone, Linkedin, Instagram, MessageCircle, MapPin } from 'lucide-react'
+import { Menu, X, Mail, Phone, Linkedin, Instagram, MessageCircle, MapPin, Sun, Moon } from 'lucide-react'
 import FluidBackground from './FluidBackground.jsx'
 import { GradualBlur } from './ui.jsx'
 import { company, nav } from '../data.js'
@@ -10,6 +10,41 @@ function Brand() {
     <Link to="/" className="brand" aria-label="Cloud9 Consultancy home">
       <img src="/logo-white.svg" alt="Cloud9 Consultancy" />
     </Link>
+  )
+}
+
+function ThemeToggle() {
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || 'dark')
+
+  // Follow the system setting until the visitor picks a theme themselves.
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: light)')
+    const onChange = (e) => {
+      let saved = null
+      try { saved = localStorage.getItem('c9-theme') } catch {}
+      if (!saved) apply(e.matches ? 'light' : 'dark', false)
+    }
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  const apply = (next, save = true) => {
+    const root = document.documentElement
+    root.classList.add('theme-anim')
+    root.dataset.theme = next
+    setTheme(next)
+    if (save) {
+      try { localStorage.setItem('c9-theme', next) } catch {}
+    }
+    setTimeout(() => root.classList.remove('theme-anim'), 500)
+  }
+
+  const label = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+  return (
+    <button className="theme-toggle" onClick={() => apply(theme === 'light' ? 'dark' : 'light')} aria-label={label} title={label}>
+      <Sun size={16} className="sun" />
+      <Moon size={16} className="moon" />
+    </button>
   )
 }
 
@@ -39,6 +74,7 @@ function Header() {
         </div>
         <div className="nav-right">
           <Link to="/contact" className="nav-cta">Book a Consultation</Link>
+          <ThemeToggle />
           <button className="burger" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
             {open ? <X size={16} /> : <Menu size={16} />}
           </button>
