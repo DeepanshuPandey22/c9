@@ -211,10 +211,10 @@ button, input, textarea, select { font: inherit; color: inherit; }
 @media (min-width: 640px) { .tab-body h3 { font-size: 30px; } }
 .tab-fade { animation: tabfade 0.5s var(--ease-out-expo); }
 @keyframes tabfade { from { opacity: 0; filter: blur(6px); transform: translateY(10px); } to { opacity: 1; filter: none; transform: none; } }
-.media { margin-top: 24px; border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border); aspect-ratio: 16 / 9; }
+.media { margin-top: 24px; border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border); aspect-ratio: 3 / 2; }
 .media { position: relative; }
 .media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85) brightness(0.8); transition: filter 0.6s, transform 0.8s var(--ease-out-expo); }
-.media:hover img { filter: saturate(1) brightness(0.95); transform: scale(1.04); }
+.media:hover img { filter: saturate(1) brightness(1); }
 .media:has(img)::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgb(var(--bg-rgb) / 0.55), transparent 55%), linear-gradient(135deg, rgb(45 56 141 / 0.35), transparent 60%); }
 .media-art { display: grid; place-items: center; color: var(--brand-sky); background:
   radial-gradient(60% 80% at 30% 20%, rgb(0 173 239 / 0.25), transparent 70%),
@@ -294,12 +294,12 @@ button, input, textarea, select { font: inherit; color: inherit; }
 .team-card { text-align: center; }
 .team-photo { width: clamp(112px, 30vw, 140px); height: clamp(112px, 30vw, 140px); margin: 0 auto; border-radius: 999px; overflow: hidden; padding: 4px; background: conic-gradient(from 200deg, var(--brand-sky), var(--brand-indigo), var(--brand-sky)); box-shadow: 0 0 40px -10px rgb(0 173 239 / 0.6); transition: transform 0.6s var(--ease-out-expo); }
 .team-card:hover .team-photo { transform: scale(1.05) rotate(-2deg); }
-.team-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; }
+.team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; border-radius: 999px; transform: scale(1.03); }
 .team-card h3 { margin-top: 20px; font-size: 18px; }
 
-.media-card { padding: 0; overflow: hidden; min-height: 320px; position: relative; }
-.media-card img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85) brightness(0.8); }
-.media-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgb(45 56 141 / 0.45), transparent 60%); pointer-events: none; }
+.media-card { padding: 12px; overflow: hidden; position: relative; display: flex; align-items: center; height: 100%; }
+.media-card img { width: 100%; height: auto; aspect-ratio: 780 / 250; object-fit: contain; border-radius: 16px; position: relative; z-index: 2; }
+.media-card.legacy-overlay::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgb(45 56 141 / 0.45), transparent 60%); pointer-events: none; }
 
 /* ---------- Contact ---------- */
 .contact-grid { display: grid; gap: 40px; }
@@ -418,9 +418,9 @@ select.field option { background: var(--card); }
 }
 :root[data-theme="light"] .eyebrow { color: #0091cc; }
 :root[data-theme="light"] .media:has(img)::after { background: linear-gradient(135deg, rgb(45 56 141 / 0.18), transparent 60%); }
-:root[data-theme="light"] .media img, :root[data-theme="light"] .media-card img { filter: saturate(0.95) brightness(0.98); }
+:root[data-theme="light"] .media img { filter: saturate(0.95) brightness(0.98); }
 :root[data-theme="light"] .media-art { background: radial-gradient(60% 80% at 30% 20%, rgb(0 173 239 / 0.18), transparent 70%), radial-gradient(70% 80% at 80% 90%, rgb(45 56 141 / 0.16), transparent 70%), #fff; }
-:root[data-theme="light"] .media-card::after { background: linear-gradient(135deg, rgb(45 56 141 / 0.2), transparent 60%); }
+:root[data-theme="light"] .media-card.legacy-overlay::after { background: linear-gradient(135deg, rgb(45 56 141 / 0.2), transparent 60%); }
 :root[data-theme="light"] .sheen::after { background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.7), transparent); }
 :root[data-theme="light"] .fab { color: var(--foreground); }
 :root[data-theme="light"] .fab:hover { color: #fff; }
@@ -439,3 +439,22 @@ select.field option { background: var(--card); }
 
 /* Smooth colour change when switching themes */
 .theme-anim, .theme-anim *, .theme-anim *::before, .theme-anim *::after { transition: background-color 0.45s, color 0.45s, border-color 0.45s, box-shadow 0.45s !important; }
+
+/* ---------- Official technology logos ---------- */
+.tech-row { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.tech-chip { height: 40px; padding: 6px 12px; border-radius: 10px; background: #fff; border: 1px solid var(--plate-border); display: flex; align-items: center; justify-content: center; transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s; }
+.tech-chip:hover { transform: translateY(-2px); box-shadow: 0 0 0 2px var(--brand-sky), 0 10px 24px -10px rgb(0 173 239 / 0.6); }
+.tech-chip img { height: auto; width: auto; max-height: 24px; max-width: 108px; object-fit: contain; }
+
+.logo-wall { background: #fff; border: 1px solid var(--plate-border); display: grid; align-content: center; justify-items: center; gap: 18px 24px; padding: 28px; }
+.logo-wall.n1 { grid-template-columns: 1fr; }
+.logo-wall.n2, .logo-wall.n4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.logo-wall.n3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.logo-wall.n3 .wall-item:first-child { grid-column: 1 / -1; }
+.logo-wall .wall-item { width: 100%; height: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; transition: transform 0.5s var(--ease-out-expo); }
+.logo-wall .wall-item:hover { transform: scale(1.06); }
+.logo-wall img { width: auto; height: auto; max-width: 100%; max-height: 64px; object-fit: contain; }
+.logo-wall.n1 img { max-width: 70%; max-height: 120px; }
+.logo-wall.n2 img, .logo-wall.n3 img { max-height: 72px; }
+@media (max-width: 639px) { .logo-wall { padding: 18px; gap: 12px 16px; } .logo-wall img { max-height: 44px; } .logo-wall.n1 img { max-height: 80px; } }
+.logo-wall::after, :root[data-theme="light"] .logo-wall::after { content: none !important; }

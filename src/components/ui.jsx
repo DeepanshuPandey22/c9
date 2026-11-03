@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { tech } from '../data.js'
 
 // Blur-up scroll reveal: opacity 0 / blur 8px / +24px -> clear, once.
 export function Reveal({ children, delay = 0, className = '', as: Tag = 'div', style, ...rest }) {
@@ -82,6 +83,34 @@ export function Marquee({ items, render, duration = 48 }) {
           </div>
         ))}
       </div>
+    </div>
+  )
+}
+
+// Row of official technology logos for a service.
+export function TechLogos({ ids }) {
+  if (!ids?.length) return null
+  return (
+    <ul className="tech-row" aria-label="Technologies">
+      {ids.map((id) => (
+        <li key={id} className="tech-chip" title={tech[id].name}>
+          <img src={tech[id].src} alt={tech[id].name} loading="lazy" />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+// Logo panel shown in place of a banner image for services that have none.
+export function LogoWall({ ids }) {
+  const list = (ids || []).slice(0, 6)
+  return (
+    <div className={`media logo-wall n${Math.min(list.length, 4)}`}>
+      {list.map((id) => (
+        <div key={id} className="wall-item">
+          <img src={tech[id].src} alt={tech[id].name} loading="lazy" />
+        </div>
+      ))}
     </div>
   )
 }

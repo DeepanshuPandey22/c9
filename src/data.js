@@ -57,8 +57,40 @@ export const partners = [
   { name: 'Amazon Web Services', short: 'AWS', logo: '/partners/aws.png', note: 'AWS Partner Network' },
   { name: 'Microsoft', short: 'Microsoft', logo: '/partners/microsoft.png', note: 'Microsoft Partner' },
   { name: 'Google Cloud', short: 'Google Cloud', logo: '/partners/google-cloud.png', note: 'Google Cloud Partner' },
-  { name: 'Trellix', short: 'Trellix', logo: null, note: 'Security Partner' },
+  { name: 'Trellix', short: 'Trellix', logo: '/tech/trellix.png', note: 'Trellix Partner' },
 ]
+
+// Official technology logos in /public/tech (PNG renders of the brands' logo files).
+export const tech = {
+  'microsoft': { name: 'Microsoft', src: '/tech/microsoft.png' },
+  'azure': { name: 'Microsoft Azure', src: '/tech/azure.png' },
+  'microsoft-365': { name: 'Microsoft 365', src: '/tech/microsoft-365.png' },
+  'intune': { name: 'Microsoft Intune', src: '/tech/intune.png' },
+  'entra-id': { name: 'Microsoft Entra ID', src: '/tech/entra-id.png' },
+  'sharepoint': { name: 'SharePoint', src: '/tech/sharepoint.png' },
+  'teams': { name: 'Microsoft Teams', src: '/tech/teams.png' },
+  'exchange': { name: 'Exchange', src: '/tech/exchange.png' },
+  'sql-server': { name: 'SQL Server', src: '/tech/sql-server.png' },
+  'windows-server': { name: 'Windows Server', src: '/tech/windows-server.png' },
+  'windows-11': { name: 'Windows 11', src: '/tech/windows-11.png' },
+  'defender': { name: 'Microsoft Defender', src: '/tech/defender.png' },
+  'aws': { name: 'Amazon Web Services', src: '/tech/aws.png' },
+  'google-cloud': { name: 'Google Cloud', src: '/tech/google-cloud.png' },
+  'kubernetes': { name: 'Kubernetes', src: '/tech/kubernetes.png' },
+  'trellix': { name: 'Trellix', src: '/tech/trellix.png' },
+  'mimecast': { name: 'Mimecast', src: '/tech/mimecast.png' },
+  'cisco': { name: 'Cisco', src: '/tech/cisco.png' },
+  'fortinet': { name: 'Fortinet', src: '/tech/fortinet.png' },
+  'palo-alto': { name: 'Palo Alto Networks', src: '/tech/palo-alto.png' },
+  'juniper': { name: 'Juniper Networks', src: '/tech/juniper.png' },
+  'power-bi': { name: 'Power BI', src: '/tech/power-bi.png' },
+  'tableau': { name: 'Tableau', src: '/tech/tableau.png' },
+  'python': { name: 'Python', src: '/tech/python.png' },
+  'meta': { name: 'Meta', src: '/tech/meta.png' },
+  'instagram': { name: 'Instagram', src: '/tech/instagram.png' },
+  'linkedin': { name: 'LinkedIn', src: '/tech/linkedin.png' },
+  'lets-encrypt': { name: "Let's Encrypt", src: '/tech/lets-encrypt.png' },
+}
 
 // Groups used for filtering on the Services page.
 export const serviceGroups = ['All', 'Cloud & Licensing', 'Security & Network', 'Digital & Data', 'Support & Training']
@@ -66,6 +98,7 @@ export const serviceGroups = ['All', 'Cloud & Licensing', 'Security & Network', 
 export const services = [
   {
     slug: 'microsoft',
+    logos: ['microsoft', 'azure', 'microsoft-365', 'intune', 'entra-id', 'sharepoint', 'teams', 'exchange', 'sql-server', 'windows-server'],
     icon: Boxes,
     group: 'Cloud & Licensing',
     tag: 'Microsoft',
@@ -93,13 +126,13 @@ export const services = [
   },
   {
     slug: 'aws',
+    logos: ['aws'],
     icon: Cloud,
     group: 'Cloud & Licensing',
     tag: 'AWS',
     title: 'AWS Services',
     short: 'Networking and delivery on Amazon Web Services.',
     lead: 'Design and configuration of secure, fast AWS network infrastructure',
-    image: '/img/AzureServices.jpg',
     featured: true,
     items: [
       'Amazon VPC',
@@ -114,6 +147,7 @@ export const services = [
   },
   {
     slug: 'gcp',
+    logos: ['google-cloud', 'kubernetes'],
     icon: Cloud,
     group: 'Cloud & Licensing',
     tag: 'Google Cloud',
@@ -130,6 +164,7 @@ export const services = [
   },
   {
     slug: 'trellix',
+    logos: ['trellix'],
     icon: Lock,
     group: 'Cloud & Licensing',
     tag: 'Trellix',
@@ -147,6 +182,7 @@ export const services = [
   },
   {
     slug: 'security',
+    logos: ['defender', 'mimecast', 'trellix'],
     icon: ShieldCheck,
     group: 'Security & Network',
     tag: 'Security',
@@ -166,6 +202,7 @@ export const services = [
   },
   {
     slug: 'network',
+    logos: ['cisco', 'fortinet', 'palo-alto', 'juniper'],
     icon: Network,
     group: 'Security & Network',
     tag: 'Network',
@@ -184,6 +221,7 @@ export const services = [
   },
   {
     slug: 'ai',
+    logos: ['python', 'azure'],
     icon: Bot,
     group: 'Digital & Data',
     tag: 'AI',
@@ -200,6 +238,7 @@ export const services = [
   },
   {
     slug: 'data',
+    logos: ['power-bi', 'tableau', 'sql-server'],
     icon: BarChart3,
     group: 'Digital & Data',
     tag: 'Data',
@@ -217,6 +256,7 @@ export const services = [
   },
   {
     slug: 'software',
+    logos: ['azure', 'aws', 'python'],
     icon: Code2,
     group: 'Digital & Data',
     tag: 'Development',
@@ -232,6 +272,7 @@ export const services = [
   },
   {
     slug: 'website',
+    logos: ['lets-encrypt'],
     icon: Globe,
     group: 'Digital & Data',
     tag: 'Web',
@@ -248,6 +289,7 @@ export const services = [
   },
   {
     slug: 'marketing',
+    logos: ['meta', 'instagram', 'linkedin'],
     icon: Megaphone,
     group: 'Digital & Data',
     tag: 'Marketing',
@@ -262,6 +304,7 @@ export const services = [
   },
   {
     slug: 'general',
+    logos: ['windows-11', 'windows-server', 'microsoft-365'],
     icon: Server,
     group: 'Support & Training',
     tag: 'Managed IT',
@@ -272,6 +315,7 @@ export const services = [
   },
   {
     slug: 'training',
+    logos: ['azure', 'microsoft-365'],
     icon: GraduationCap,
     group: 'Support & Training',
     tag: 'Training',
@@ -304,6 +348,8 @@ export const team = [
   { name: 'Khileshwar Kumar', role: 'Founder & CEO', photo: '/team/khileshwar-kumar.png' },
   { name: 'Nitin Patte', role: 'Business Development', photo: '/team/nitin-patte.png' },
   { name: 'Nikhil Paliwal', role: 'Global Client Strategist', photo: '/team/nikhil-paliwal.png' },
+  // Designation to be confirmed
+  { name: 'Surender Singh', role: '', photo: '/team/surender-singh.png' },
 ]
 
 // Top clients from the 2025 profile first, then earlier clients from the old site.

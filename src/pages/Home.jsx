@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles, CheckCircle2, LayoutGrid } from 'lucide-react'
-import { Reveal, SectionHead, GlassCard, Marquee, LogoTile } from '../components/ui.jsx'
+import { Reveal, SectionHead, GlassCard, Marquee, LogoTile, TechLogos, LogoWall } from '../components/ui.jsx'
 import { company, services, generalServices, values, about, clients, partners, stats } from '../data.js'
 
 const featured = services.filter((s) => s.featured)
@@ -101,9 +101,12 @@ function ServiceTabs() {
             <h3 style={{ marginTop: 20 }}>{s.title}</h3>
             <p className="mono-label" style={{ marginTop: 12, fontSize: 11, lineHeight: 1.7 }}>{s.lead}</p>
             {s.image ? (
-              <div className="media"><img src={s.image} alt={s.title} loading="lazy" /></div>
+              <>
+                <div className="media"><img src={s.image} alt={s.title} loading="lazy" /></div>
+                <TechLogos ids={s.logos} />
+              </>
             ) : (
-              <div className="media media-art"><Icon size={72} strokeWidth={1} /></div>
+              <LogoWall ids={s.logos} />
             )}
           </div>
           <ul className="chips">

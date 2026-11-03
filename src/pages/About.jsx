@@ -24,7 +24,7 @@ export default function About() {
           </Reveal>
           <Reveal delay={120}>
             <div className="glass card media-card">
-              <img src="/img/whoweare-1.jpg" alt="Cloud9 Consultancy team at work" />
+              <img src="/img/whoweare-1.jpg" alt="Cloud9 Consultancy — Expertly providing IT & Design services you can trust" />
             </div>
           </Reveal>
         </div>
@@ -50,14 +50,14 @@ export default function About() {
 
       <section className="container section">
         <SectionHead eyebrow="Management Team" title="The people behind Cloud9" />
-        <div className="grid grid-md-3">
+        <div className="grid grid-md-2 grid-xl-4">
           {team.map((m, i) => (
             <Reveal key={m.name} delay={i * 100}>
               <div className="glass sheen glass-hover card team-card">
                 <div className="inner">
                   <div className="team-photo"><img src={m.photo} alt={m.name} loading="lazy" /></div>
                   <h3>{m.name}</h3>
-                  <p className="mono-label" style={{ marginTop: 8 }}>{m.role}</p>
+                  {m.role && <p className="mono-label" style={{ marginTop: 8 }}>{m.role}</p>}
                 </div>
               </div>
             </Reveal>

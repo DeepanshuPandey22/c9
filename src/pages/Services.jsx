@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
-import { Reveal, PageHero } from '../components/ui.jsx'
+import { Reveal, PageHero, TechLogos, LogoWall } from '../components/ui.jsx'
 import { services, serviceGroups, partners } from '../data.js'
 
 export default function Services() {
@@ -69,9 +69,12 @@ export default function Services() {
                       <h2>{s.title}</h2>
                       <p className="muted" style={{ marginTop: 12, fontSize: 14 }}>{s.lead}.</p>
                       {s.image ? (
-                        <div className="media"><img src={s.image} alt={s.title} loading="lazy" /></div>
+                        <>
+                          <div className="media"><img src={s.image} alt={s.title} loading="lazy" /></div>
+                          <TechLogos ids={s.logos} />
+                        </>
                       ) : (
-                        <div className="media media-art"><Icon size={72} strokeWidth={1} /></div>
+                        <LogoWall ids={s.logos} />
                       )}
                     </div>
                     <ul className={`chips ${s.items.length > 5 ? 'two' : ''}`}>
