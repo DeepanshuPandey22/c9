@@ -1,0 +1,22 @@
+# Hostinger (LiteSpeed/Apache) config for the Cloud9 single-page app.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Always use HTTPS
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Send www to the main domain (needs an SSL certificate that also covers www)
+  RewriteCond %{HTTP_HOST} ^www\.cloud9consultancy\.com$ [NC]
+  RewriteRule ^ https://cloud9consultancy.com%{REQUEST_URI} [L,R=301]
+
+  # Client-side routes (/about, /services, ...) are served by index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Tell browsers to only ever use HTTPS for this site
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
