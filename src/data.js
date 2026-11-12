@@ -348,8 +348,7 @@ export const team = [
   { name: 'Khileshwar Kumar', role: 'Founder & CEO', photo: '/team/khileshwar-kumar.png' },
   { name: 'Nitin Patte', role: 'Business Development', photo: '/team/nitin-patte.png' },
   { name: 'Nikhil Paliwal', role: 'Global Client Strategist', photo: '/team/nikhil-paliwal.png' },
-  // Designation to be confirmed
-  { name: 'Surender Singh', role: '', photo: '/team/surender-singh.png' },
+  { name: 'Surender Singh', role: 'Managing Director', photo: '/team/surender-singh.png' },
 ]
 
 // Top clients from the 2025 profile first, then earlier clients from the old site.
