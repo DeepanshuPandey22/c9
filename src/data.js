@@ -345,7 +345,7 @@ export const about = {
 }
 
 export const team = [
-  { name: 'Khileshwar Kumar', role: 'Founder & CEO', photo: '/team/khileshwar-kumar.png' },
+  { name: 'Khileshwar Kumar', role: 'Founder & CEO', photo: '/team/khileshwar-kumar.jpg' },
   { name: 'Nitin Patte', role: 'Business Development', photo: '/team/nitin-patte.png' },
   { name: 'Nikhil Paliwal', role: 'Global Client Strategist', photo: '/team/nikhil-paliwal.png' },
   { name: 'Surender Singh', role: 'Managing Director', photo: '/team/surender-singh.png' },
